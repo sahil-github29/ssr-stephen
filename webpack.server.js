@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.js?$/,
         loader: "babel-loader", // webpack loader module
-        exclude: "/node_modules/",
+        exclude: /node_modules/,
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react"],
         },
