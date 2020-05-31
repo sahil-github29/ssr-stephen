@@ -1,13 +1,12 @@
 import express from "express";
-import Home from "./client/components/Home";
-import renderer from "./helpers/renderer"
+import renderer from "./helpers/renderer";
 
 const app = express();
 
 app.use(express.static("public"));
 
-app.get("/", (req, res, next) => {  
-  res.send(renderer());
+app.get("*", (req, res, next) => {
+  res.send(renderer(req)); // passing req object for <StaticRouter>
 });
 
 app.listen(3000, () => {
