@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchUsers } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchUsers } from "../actions";
 
-class UsersList extends Component {
+class UsersListPage extends Component {
   renderUsers() {
     return this.props.users.map((user) => <li key={user.id}>{user.name}</li>);
   }
@@ -25,10 +25,11 @@ const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-function loadData() {
-  console.log('tyring to load some data');
+function loadData(store) {
+  return store.dispatch(fetchUsers());
 }
 
-export { loadData };
-
-export default connect(mapStateToProps, { fetchUsers })(UsersList);
+export default {
+  component: connect(mapStateToProps, { fetchUsers })(UsersListPage),
+  loadData,
+};
