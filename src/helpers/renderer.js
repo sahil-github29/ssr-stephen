@@ -18,7 +18,9 @@ export default (req, store) => {
   // sending the javascript file so the browser will laod it on client side
   return `
     <html>
-       <head><title>Server Side Rendering</title></head>
+       <head><title>Server Side Rendering</title>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+       </head>
        <body>
         <div id="root">${content}</div>
         <script>

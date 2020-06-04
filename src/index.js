@@ -1,27 +1,27 @@
-import 'babel-polyfill';
-import express from 'express';
-import renderer from './helpers/renderer';
-import createStore from './helpers/createStore';
-import { matchRoutes } from 'react-router-config';
-import proxy from 'express-http-proxy';
-import Routes from './client/Routes';
+import "babel-polyfill";
+import express from "express";
+import renderer from "./helpers/renderer";
+import createStore from "./helpers/createStore";
+import { matchRoutes } from "react-router-config";
+import proxy from "express-http-proxy";
+import Routes from "./client/Routes";
 
 const app = express();
 
 app.use(
-  '/api',
-  proxy('http://react-ssr-api.herokuapp.com/', {
+  "/api",
+  proxy("http://react-ssr-api.herokuapp.com/", {
     proxyReqOptDecorator(opts) {
-      opts.header['x-forwarded-host'] = 'localhost:3000';
+      opts.headers["x-forwarded-host"] = "localhost:3000";
       return opts;
     },
   })
 );
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.get('*', (req, res, next) => {
-  const store = createStore();
+app.get("*", (req, res) => {
+  const store = createStore(req);
 
   // we need the components on the user's requested route before loading the application
   const promises = matchRoutes(Routes, req.path).map(({ route }) => {
@@ -35,5 +35,5 @@ app.get('*', (req, res, next) => {
 });
 
 app.listen(3000, () => {
-  console.log('Listening on port  3000');
+  console.log("Listening on port  3000");
 });
