@@ -30,7 +30,12 @@ app.get("*", (req, res) => {
 
   // calling all the pending network request and render the page once all the requests done
   Promise.all(promises).then(() => {
-    res.send(renderer(req, store)); // passing req object for <StaticRouter>
+    const context = {};
+    const content = renderer(req, store, context);
+    if (context.notFound) {
+      res.status(404);
+    }
+    res.send(content); // passing req object for <StaticRouter>
   });
 });
 

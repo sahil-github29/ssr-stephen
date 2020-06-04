@@ -6,10 +6,10 @@ import serialize from "serialize-javascript";
 import { renderRoutes } from "react-router-config";
 import Routes from "../client/Routes";
 
-export default (req, store) => {
+export default (req, store, context) => {
   const content = renderToString(
     <Provider store={store}>
-      <StaticRouter location={req.url} context={{}}>
+      <StaticRouter location={req.url} context={context}>
         <div>{renderRoutes(Routes)}</div>
       </StaticRouter>
     </Provider>
