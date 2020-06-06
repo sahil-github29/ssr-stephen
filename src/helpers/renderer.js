@@ -1,10 +1,11 @@
-import React from "react";
-import { renderToString } from "react-dom/server";
-import { StaticRouter, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import serialize from "serialize-javascript";
-import { renderRoutes } from "react-router-config";
-import Routes from "../client/Routes";
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import serialize from 'serialize-javascript';
+import { renderRoutes } from 'react-router-config';
+import Routes from '../client/Routes';
+import { Helmet } from 'react-helmet';
 
 export default (req, store, context) => {
   const content = renderToString(
@@ -15,10 +16,17 @@ export default (req, store, context) => {
     </Provider>
   );
 
+  // extracting all the tags stored in Helmet
+  const helmet = Helmet.renderStatic();
+
   // sending the javascript file so the browser will laod it on client side
   return `
     <html>
-       <head><title>Server Side Rendering</title>
+       <head>
+ 
+        ${helmet.title.toString()}
+        ${helmet.meta.toString()} 
+
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
        </head>
        <body>

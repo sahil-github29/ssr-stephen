@@ -1,7 +1,8 @@
-import UsersListPage from "./pages/UsersListPage";
-import HomePage from "./pages/HomePage";
-import NotFoundPage from "./pages/NotFoundPage";
-import App from "./App";
+import UsersListPage from './pages/UsersListPage';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import AdminsListPage from './pages/AdminsListPage';
+import App from './App';
 
 export default [
   {
@@ -9,12 +10,16 @@ export default [
     routes: [
       {
         ...HomePage,
-        path: "/",
+        path: '/',
         exact: true,
       },
       {
         ...UsersListPage,
-        path: "/users",
+        path: '/users',
+      },
+      {
+        ...AdminsListPage,
+        path: '/admins',
       },
       {
         ...NotFoundPage,
